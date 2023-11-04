@@ -1,5 +1,6 @@
 import random
 from abc import ABC, abstractmethod
+from collections import Counter
 
 
 class IGameItem(ABC):
@@ -90,14 +91,11 @@ if __name__ == "__main__":
 
     rewards = []
 
-    counter = {}
+    counter = Counter()
 
     for _ in range(1_000_000):
         rewards.append(item := random.choice(generators).create_item())
         item_name = type(item).__name__
-        if item_name in counter.keys():
-            counter[item_name] += 1
-        else:
-            counter[item_name] = 1
+        counter[item_name] += 1
 
     print(counter)
